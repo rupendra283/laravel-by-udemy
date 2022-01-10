@@ -5,8 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Dashboard
 
+                    <a href="{{ route('post.index') }}" class="btn btn-primary float-end">See Post</a>
+                </div>
                 <div class="card-body">
                     Hey! you are admin.
                 </div>

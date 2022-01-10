@@ -42,4 +42,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /**
+     * Get the user associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function post()
+    {
+        return $this->hasOne(Post::class, 'created_by', 'id');
+    }
+
+    /**
+     * Get the user associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function comment()
+    {
+        return $this->hasOne(Comment::class, 'created_by', 'id');
+    }
 }
