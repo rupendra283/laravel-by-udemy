@@ -26,6 +26,7 @@
                             </a>
                                 <div class="comment-footer"> <span class="date">{{$item->created_at->diffForHumans()}}</span> <span class="badge bg-primary">{{ $item->title }}</span> </div>
                                 <p class="m-b-5 m-t-10">{{ $item->content }}</p>
+                                <p class="m-b-5 m-t-10">{{ $item->comments_count }}</p>
                             </div>
                         </div>
                     </div>

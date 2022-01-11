@@ -14,6 +14,7 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        Post::factory(20)->create();
+        $post_count = (int)$this->command->ask('how Many post would you like ?',20);
+        Post::factory($post_count)->create();
     }
 }
