@@ -26,6 +26,9 @@ Route::get('/post', [App\Http\Controllers\PostController::class, 'index'])->name
 Route::get('/post/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create');
 Route::post('/post/store', [App\Http\Controllers\PostController::class, 'store'])->name('post.store');
 Route::get('/post/show/{post:slug}', [App\Http\Controllers\PostController::class, 'show'])->name('post.show');
+Route::get('/post/edit/{post:slug}', [App\Http\Controllers\PostController::class, 'edit'])->name('post.edit');
+Route::put('/post/update/{post:slug}', [App\Http\Controllers\PostController::class, 'update'])->name('post.update');
+Route::get('/post/delete/{post:slug}', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.delete');
 Route::post('/comment', [App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');
 
 Route::get('/home', 'HomeController@index')->name('home');

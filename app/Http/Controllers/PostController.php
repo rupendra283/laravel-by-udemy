@@ -6,6 +6,8 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Gate;
+
 use Str;
 
 
@@ -18,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user')->get();
+        $posts = Post::withCount('user','comments')->get();
         // dd($posts);
        return view('post.index',compact('posts'));
     }
@@ -30,6 +32,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        // $this->authorize('post.create');
         return view ('post.create');
     }
 
@@ -86,7 +89,14 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        // dd($post->slug);
+        // if(Gate::denies('update-post',$post)){
+        //     abort(403,'You can Not Edit Blog post ');
+        // }
+        $this->authorize('post.update',$post);
+
+        return view('post.edit',compact('post'));
+
     }
 
     /**
@@ -98,7 +108,26 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        // dd($request->all());
+
+
+
+       $request->validate([
+        'title' => 'required',
+       ]);
+       $this->authorize('post.update',$post);
+        //For Image
+            // if(Gate::denies('update-post',$post)){
+            //     abort(403,'You can Not Update Blog post');
+            // }
+       $post->title  = $request->title;
+       $post->content  = $request->content;
+       $post->slug = Str::slug($request->title);
+       $post->created_by   = Auth::user()->id;
+       $post->updated_by = null;
+       $post->save();
+        return redirect()->route('post.index');
+
     }
 
     /**
@@ -109,6 +138,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $this->authorize('post.delete',$post);
+        // if(Gate::denies('delete-post',$post)){
+        //     abort(403,'You can Not Delete Blog post');
+        // }
     }
 }
