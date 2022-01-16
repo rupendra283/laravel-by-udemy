@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scope\LatestScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,6 +33,13 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class, 'post_id', 'id');
+    }
+
+
+    public static function boot(){
+
+        parent::boot();
+        static::addGlobalScope(new LatestScope);
     }
 
 }

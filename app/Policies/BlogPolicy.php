@@ -53,7 +53,7 @@ class BlogPolicy
      */
     public function update(User $user, Post $post)
     {
-        dd("asd");
+        // dd("asd");
         return $user->id ==$post->created_by;
     }
 
@@ -66,7 +66,7 @@ class BlogPolicy
      */
     public function delete(User $user, Post $post)
     {
-        dd("sdfs");
+        // dd("sdfs");
         return $user->id ==$post->created_by;
     }
 
