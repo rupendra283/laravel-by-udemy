@@ -14,6 +14,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory(5)->create();
+        $user_count = (int)$this->command->ask('how Many users would you like ?',20);
+
+        User::factory($user_count)->create();
     }
 }

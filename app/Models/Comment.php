@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Scope\LatestScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,10 +30,15 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
+        // This is global query scope
+    // public static function boot(){
 
-    public static function boot(){
+    //     parent::boot();
+    //     static::addGlobalScope(new LatestScope);
+    // }
+    //local query scope
+    public function scopeLatest(Builder $query){
 
-        parent::boot();
-        static::addGlobalScope(new LatestScope);
+        return $query->orderBy(static::CREATED_AT,'desc');
     }
 }

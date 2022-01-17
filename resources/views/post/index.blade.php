@@ -35,6 +35,26 @@
                 @endforelse
 
             </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    {{-- <div class="card-header">
+                        Header
+                    </div> --}}
+                    <div class="card-body">
+                        <h5 class="card-title">Most Commented</h5>
+                        <p class="card-text">What People are Currently talking about</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        @foreach ($mostCommented as $item)
+                        <li class="list-group-item"> <a href="{{ route('post.show',$item->slug) }}">{{ $item->title }}</a><span class=" badge bg-primary">{{ $item->comments_count }}</span></li>
+                        @endforeach
+                    </ul>
+                    {{-- <div class="card-footer">
+                        Footer
+                    </div> --}}
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

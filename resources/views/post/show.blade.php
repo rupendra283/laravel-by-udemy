@@ -26,15 +26,11 @@
                           <div>
                             <h6 class="fw-bold text-primary mb-1">{{ $comment->user->name }}</h6>
                             <p class="text-muted small mb-0">
-                              Shared publicly - {{$comment->created_at->diffForHumans()}}
+                              {{ $comment->comment }} - {{$comment->created_at->diffForHumans()}}
                             </p>
                           </div>
                         </div>
                         @endforeach
-                        <p class="mt-3 mb-4 pb-2">
-                         {{ $comment->comment }}.
-                        </p>
-
                         @else
                         No Comment found
 

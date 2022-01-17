@@ -19,6 +19,7 @@ class CommentFactory extends Factory
             'comment' => $this->faker->paragraph(2),
             'created_by' => User::factory(1)->create()->first(),
             'post_id' => Post::factory(1)->create()->first(),
+            'created_at'=> $this->faker->dateTimeBetween('-3 months'),
         ];
     }
 }
