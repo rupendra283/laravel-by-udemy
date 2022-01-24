@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 
@@ -21,11 +22,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->withCount('user','comments')->get();
+
+
+
+        $posts = Post::latest()->withCount('user')->with('user','tags')->get();
         $mostCommented = Post::mostCommented()->take(5)->get();
         $mostCommentedUsers = User::WithMostPosts()->take(5)->get();
-        dd($mostCommentedUsers);
-       return view('post.index',compact('posts','mostCommented'));
+       return view('post.index',compact('posts','mostCommented','mostCommentedUsers'));
     }
 
     /**
@@ -78,6 +81,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+
+
+
         $post->with(['user','comments']);
         // dd($post);
 

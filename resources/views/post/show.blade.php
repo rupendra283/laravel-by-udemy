@@ -11,7 +11,8 @@
                 <div class="card-body">
                             <img class="d-block img-fluid" src="{{ Storage::url($post->image)}}" alt="First slide">
                         <h3>{{ $post->user->name }} <span class="badge bg-success">{{ $post->title }}</span> <span class="badge bg-primary">{{ count($post->comments) }}</span> </h3>
-                        <p>{{ $post->content }}.</p>
+                        @component('components.update',['date' => $post->created_at, 'name' => $post->user->name])
+                        @endcomponent
                         <hr>
                         @if (count($post->comments) > 0)
                         @foreach ($post->comments as $comment)
@@ -24,10 +25,15 @@
                             height="60"
                           />
                           <div>
-                            <h6 class="fw-bold text-primary mb-1">{{ $comment->user->name }}</h6>
-                            <p class="text-muted small mb-0">
-                              {{ $comment->comment }} - {{$comment->created_at->diffForHumans()}}
+                            {{-- <h6 class="fw-bold text-primary mb-1">{{ $comment->user->name }}</h6> --}}
+                            <p class="text-primary">
+                              {{ $comment->comment }} -
                             </p>
+                            @component('components.update',['date' => $comment->created_at, 'name' => $comment->user->name])
+                            @endcomponent
+                          @component('components.badge',['type'=>'primary','show'=> now()->diffinminutes($comment->created_at) <5])
+                            NEW!
+                          @endcomponent
                           </div>
                         </div>
                         @endforeach

@@ -9,10 +9,18 @@
                     <h3>
                         <a href="{{ route('post.show',$post->slug) }}">{{ $post->title }}</a>
                     </h3>
+                    @component('components.update',['date' => $post->created_at, 'name' => $post->user->name])
+                    @endcomponent
+
+                    @component('components.tags',['tags' => $post->tags])
+
+                    @endcomponent
+                    {{-- @foreach ($post->tags as $item)
                     <p>
-                        Added {{ $post->created_at->diffForHumans() }}
-                        <b>by {{ $post->user->name }} </b>
+                        <a href="" class="badge bg-success">{{ $item->name }}</a>
                     </p>
+
+                    @endforeach --}}
                     @if($post->comments_count)
                         <p>{{ $post->comments_count }} comments</p>
                     @else
@@ -53,7 +61,30 @@
                         Footer
                     </div> --}}
                 </div>
+                <div class="row mt-2">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            {{-- <div class="card-header">
+                                Header
+                            </div> --}}
+                            <div class="card-body">
+                                <h5 class="card-title">Most Active Users</h5>
+                                <p class="card-text">What People are Currently talking about</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                @foreach ($mostCommentedUsers as $item)
+                                <li class="list-group-item">{{ $item->name }}<span class=" badge bg-primary">{{ $item->post_count }}</span></li>
+                                @endforeach
+                            </ul>
+                            {{-- <div class="card-footer">
+                                Footer
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
 
         </div>
     </div>

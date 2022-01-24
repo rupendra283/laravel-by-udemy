@@ -58,4 +58,17 @@ class Post extends Model
         return $query->withCount('comments')->orderBy('comments_count', 'desc');
     }
 
+
+    // many to many relation
+
+    /**
+     * The roles that belong to the Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class,'post_tags','post_id','tag_id')->withTimestamps();
+    }
+
 }
