@@ -31,12 +31,20 @@ Route::put('/post/update/{post:slug}', [App\Http\Controllers\PostController::cla
 Route::get('/post/delete/{post:slug}', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.delete');
 Route::post('/comment', [App\Http\Controllers\CommentController::class, 'store'])->name('comment.store');
 
+// Show Mail in Browser
+Route::get('mail', function () {
+    $comment = App\Models\Comment::find(1);
+    return new App\Mail\commentedPostedMardown($comment);
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['admin']], function () {
     Route::get('admin/home', 'HomeController@handleAdmin')->name('admin.route');
     Route::get('demo',function(){
         return 'authoried';
     });
+
+
 
 
 });

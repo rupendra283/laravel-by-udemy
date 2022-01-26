@@ -9,7 +9,7 @@
                     <a href="{{ route('post.index') }}" class="btn btn-primary float-end">Back</a>
                 </div>
                 <div class="card-body">
-                            <img class="d-block img-fluid" src="{{ Storage::url($post->image)}}" alt="First slide">
+                            <img class="d-block img-fluid" src="{{ Storage::url($post->image)}}" height="170px" width="150px" alt="First slide">
                         <h3>{{ $post->user->name }} <span class="badge bg-success">{{ $post->title }}</span> <span class="badge bg-primary">{{ count($post->comments) }}</span> </h3>
                         @component('components.update',['date' => $post->created_at, 'name' => $post->user->name])
                         @endcomponent

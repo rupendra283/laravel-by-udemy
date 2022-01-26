@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\commentedPostedMardown;
+use App\Mail\CommentNotify;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CommentController extends Controller
 {
@@ -34,7 +38,7 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Post $post)
     {
         $request->validate([
             'comment' => 'required',
@@ -44,6 +48,9 @@ class CommentController extends Controller
        $comment->post_id = $request->post_id;
        $comment->created_by = Auth::user()->id;
        $comment->save();
+        Mail::to('post@gmail.com')->send(new commentedPostedMardown($comment));
+
+
        return back()->with('msg','New Comment Added Succesfully');
     }
 
