@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
+// class commentedPostedMardown extends Mailable implements ShouldQueue
 class commentedPostedMardown extends Mailable
 {
     use Queueable, SerializesModels;

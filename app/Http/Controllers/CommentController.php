@@ -48,7 +48,15 @@ class CommentController extends Controller
        $comment->post_id = $request->post_id;
        $comment->created_by = Auth::user()->id;
        $comment->save();
-        Mail::to('post@gmail.com')->send(new commentedPostedMardown($comment));
+       // send mail without queue
+
+        // Mail::to('post@gmail.com')->send(new commentedPostedMardown($comment));
+        // Send mail in queue
+        // Mail::to('post@gmail.com')->queue(new commentedPostedMardown($comment));
+
+        // Send mail with time
+        $when = now()->addMinute(1);
+        Mail::to('post@gmail.com')->later($when,new commentedPostedMardown($comment));
 
 
        return back()->with('msg','New Comment Added Succesfully');
